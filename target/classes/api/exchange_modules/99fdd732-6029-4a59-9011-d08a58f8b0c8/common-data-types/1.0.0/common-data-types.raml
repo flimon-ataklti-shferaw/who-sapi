@@ -1,0 +1,46 @@
+#%RAML 1.0 Library
+
+usage: Used for common data types across all domains
+#
+# To be updated, retailItem and retailItems are listed here only for testing purposes 
+#
+types:
+  fieldValidationType:
+    type: object
+    properties:
+      field:
+        description: input filed that is missing or not compliant to the specification
+        type: string 
+        required: true
+      description: 
+        description: provides the details about the validation error
+        type: string
+        required: true 
+  errorType:
+    description: This type is for used to provide detailed information about the error occurred in a generic matter. All APIs should incorporate this object
+    type: object 
+    properties:
+      code:
+        description: Code of the error, can be an internal error code specific to the working of the API that can be referenced by the ‘additionalDocumentation’ field
+        type: integer
+        required: true
+      message:
+        description: A human readable message that describes the error / exception occurred
+        type: string
+        required: true
+      description:
+        description: A human readable, comprehensive explanation of the occured exception
+        type: string
+        required: false
+      dateTime:
+        description: The date-time stamp of the occured error 
+        type: datetime
+        required: true
+      transactionId:
+        description: Internal identifier of the transaction that failed 
+        type: string
+        required: true
+      additionalDocumentationURL:
+        description: URL to exchange where additional information can be found of the exception, mostly the case for non standard exceptions 
+        type: string
+        required: false
