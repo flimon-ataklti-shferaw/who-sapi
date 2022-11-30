@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
+	<sub-flow name="publish-covid-case-to-who" doc:id="54b4abf1-e079-4631-aa9d-d7d5580ff85f" >
+		<logger level="DEBUG" doc:name="Before Backend Call" doc:id="2fdaa1fb-f074-4c32-984b-481581a7fcd6" message='transactionID: #[vars.transactionId]], correlationID: #[vars.correlationID], message: "Before publish case to who JMS", payload: #[payload], attributes: #[vars.dynamicProperties]' />
+		<jms:publish doc:name="Publish Case To WHO" doc:id="9e1163cc-f09e-452c-9142-05c18e6d41b5" destination="${secure::jms.who.covid.case.queue}" config-ref="JMS_UHO_Config">
+			<jms:message>
+				<jms:properties><![CDATA[#[vars.dynamicProperties]]]></jms:properties>
+			</jms:message>
+		</jms:publish>
+		<logger level="DEBUG" doc:name="After Backend Call" doc:id="e6db60c7-5aca-44bd-af4e-0056590e3448" message='transactionID: #[vars.transactionId]], correlationID: #[vars.correlationID], message: "After publish case to who JMS", payload: #[payload]' />
+	</sub-flow>
+</mule>
